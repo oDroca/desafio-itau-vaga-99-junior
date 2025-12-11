@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
-@RequestMapping("/desafio")
+@RequestMapping("/")
 public class DesafioController {
     
     DesafioService desafioService;
@@ -24,7 +24,7 @@ public class DesafioController {
         this.desafioService = desafioService;
     }
 
-    @PostMapping("/transacao")
+    @PostMapping("transacao")
     public ResponseEntity<TransactionResponseDTO> createTransaction(@RequestBody @Valid TransactionRequestDTO transactionRequest) {
         TransactionResponseDTO response = desafioService.createTransaction(transactionRequest);
         return new ResponseEntity<TransactionResponseDTO>(response, HttpStatus.CREATED);
