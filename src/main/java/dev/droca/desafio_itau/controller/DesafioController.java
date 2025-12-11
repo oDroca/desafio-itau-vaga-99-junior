@@ -5,13 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dev.droca.desafio_itau.dto.StatisticResponseDTO;
 import dev.droca.desafio_itau.dto.TransactionRequestDTO;
-import dev.droca.desafio_itau.dto.TransactionResponseDTO;
 import dev.droca.desafio_itau.service.DesafioService;
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @Controller
@@ -25,9 +28,21 @@ public class DesafioController {
     }
 
     @PostMapping("transacao")
-    public ResponseEntity<TransactionResponseDTO> createTransaction(@RequestBody @Valid TransactionRequestDTO transactionRequest) {
-        TransactionResponseDTO response = desafioService.createTransaction(transactionRequest);
-        return new ResponseEntity<TransactionResponseDTO>(response, HttpStatus.CREATED);
+    public ResponseEntity<Object> createTransaction(@RequestBody @Valid TransactionRequestDTO transactionRequest) {
+        desafioService.createTransaction(transactionRequest);
+        return new ResponseEntity<Object>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("transacao")
+    public ResponseEntity<Object> deleteTransaction() {
+        desafioService.deleteTransaction();
+        return new ResponseEntity<Object>(HttpStatus.OK);
+    }
+
+    @GetMapping("estatistica")
+    public ResponseEntity<StatisticResponseDTO> getStatistic() {
+        StatisticResponseDTO response = desafioService.getStatistic();
+        return new ResponseEntity<StatisticResponseDTO>(response, HttpStatus.OK);
+    }
+    
 }
